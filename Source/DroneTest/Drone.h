@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Missile.h"
 #include "Drone.generated.h"
 
 UCLASS()
@@ -21,16 +22,16 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UStaticMeshComponent* DroneBody;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* Paddle1;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* Paddle2;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* Paddle3;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* Paddle4;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -57,6 +58,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationRate = 10.0f;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AMissile> Bullet;
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -82,7 +86,8 @@ public:
 	UFUNCTION()
 	void Turn(float Value);
 
-	
+	UFUNCTION()
+	void DoFire();
 
 
 };

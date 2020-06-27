@@ -37,6 +37,7 @@ ADrone::ADrone()
 	Paddles.Add(Paddle2);
 	Paddles.Add(Paddle3);
 	Paddles.Add(Paddle4);
+	
 
 	UpThurster = CreateDefaultSubobject<UPhysicsThrusterComponent>(TEXT("UpThurster"));
 	UpThurster->SetupAttachment(CollisionBox); 
@@ -101,6 +102,7 @@ void ADrone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis(TEXT("Lift"), this, &ADrone::GiveUpPower);
 	PlayerInputComponent->BindAxis(TEXT("Forward"), this, &ADrone::GiveForwardPower);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ADrone::Turn);
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ADrone::DoFire);
 }
 
 void ADrone::GiveUpPower(float Value)
@@ -126,6 +128,12 @@ void ADrone::GiveForwardPower(float Value)
 void ADrone::Turn(float Value)
 {
 	CollisionBox->AddTorqueInDegrees(this->GetActorUpVector() * Value * TorqueStrength);
+}
+
+void ADrone::DoFire()
+{
+	FTransform temp = DroneBody->GetSocketTransform(TEXT("Fire"));
+	GetWorld()->SpawnActor<AMissile>(Bullet, temp);
 }
 
 

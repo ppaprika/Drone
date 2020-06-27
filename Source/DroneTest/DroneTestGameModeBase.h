@@ -14,4 +14,8 @@ class DRONETEST_API ADroneTestGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY()
+	int32 scores;
+
 };
